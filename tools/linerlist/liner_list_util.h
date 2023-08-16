@@ -7,10 +7,10 @@
 
 #include "structure/0_sq_single_list_util.cpp"
 #include "structure/1_link_single_list_util.cpp"
-#include "structure/2_link_no_head_list_util.h"
-#include "structure/3_link_2_head_list_util.h"
-#include "structure/4_link_circle_head_list_util.h"
-#include "structure/5_link_cicle_2_head_list_util.h"
+#include "structure/2_link_no_head_list_util.cpp"
+#include "structure/3_link_2_head_list_util.cpp"
+#include "structure/4_link_circle_head_list_util.cpp"
+#include "structure/5_link_cicle_2_head_list_util.cpp"
 #include "../int_random.h"
 
 

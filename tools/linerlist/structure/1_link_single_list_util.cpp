@@ -197,7 +197,7 @@ SingleList headCreateListPre(SingleList &list, int data[], int len) {
  * @param len
  * @return
  */
-SingleList headCreateListAfter(SingleList &list, int data[],int len){
+SingleList headCreateListAfter(SingleList &list, const int data[],int len){
     SingleNode *s,*rear;
     list = (SingleList) malloc(sizeof(SingleNode));
     list->next= nullptr;
@@ -205,6 +205,7 @@ SingleList headCreateListAfter(SingleList &list, int data[],int len){
     for (int i = 0; i < len; ++i) {
         s = (SingleList)malloc(sizeof(SingleNode));
         s->data= data[i];
+        s->next = nullptr; //出bug了，最后一个指针要置空
         rear->next = s;
         rear = s;
     }
