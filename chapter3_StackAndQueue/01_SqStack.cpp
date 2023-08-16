@@ -8,7 +8,7 @@ using namespace std;
 
 #define MaxSize 50
 
-typedef struct Node{
+typedef struct SqStack{
     int data[MaxSize];
     int top;
 }SqStack;

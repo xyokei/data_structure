@@ -10,7 +10,8 @@ typedef struct SqList {
     int *data;
     int length;
     int MaxSize;
-} SqList;
+}
+SqList;
 
 // 创建
 void initList(SqList &sqList);
@@ -19,7 +20,7 @@ void initList(SqList &sqList);
 void DestroyList(SqList &sqList);
 
 // 增
-bool listInsert(SqList &sqList, int i, int value);
+bool insertList(SqList &sqList, int i, int value);
 
 // 删
 int listDelete(SqList &sqList, int i);

@@ -1,6 +1,6 @@
 //
 // Created by AutumnSigni on 2023/7/13.
-//
+//栈 -- 接口
 
 # include "sq_stack_util.h"
 # include "link_stack_util.h"

@@ -1,6 +1,6 @@
 //
 // Created by AutumnSigni on 2023/7/13.
-//
+//栈 -- 顺序存储 方法
 #include "sq_stack.h"
 #include "iostream"
 using namespace std;

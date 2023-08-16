@@ -38,4 +38,9 @@ int getLength(SingleList list);
 
 void printList(SingleList list);
 
+SingleList headCreateListPre(SingleList &list, int data[], int len);
+
+SingleList headCreateListAfter(SingleList &list, int data[], int len);
+
+
 #endif //CHAPTER3_STACKANDQUEUE_1_LINK_SINGLE_LIST_UTIL_H

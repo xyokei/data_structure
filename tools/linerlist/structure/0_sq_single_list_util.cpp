@@ -54,12 +54,16 @@ SqList extendList(SqList sqList) {
 
 /**
  * 下标从0开始 但是插入位置是位序，注意这个
+ * 时间复杂度
+ *           最好：直接插到表尾 即 i = n+1 :O(1)
+ *           最坏：插到表头 i = 1 :O(n)
+ *           平均：(1+2+..+n)*p = n/2 , p =1/(1+n)
  * @param SqList
  * @param i 位序
  * @param value
  * @return
  */
-bool listInsert(SqList &sqList, int i, int value) {
+bool insertList(SqList &sqList, int i, int value) {
     // 先检验输入数据合法
     if (i < 1 || i > sqList.length + 1) {
         cout << "输入位置不合法"<<"\n";

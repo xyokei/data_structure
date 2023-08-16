@@ -1,6 +1,6 @@
 //
 // Created by AutumnSigni on 2023/7/13.
-//
+//栈 -- 链式存储 方法
 
 //  带头结点
 
@@ -14,7 +14,7 @@ using namespace std;
 
 // 初始化
 void initStack(LinkStack &s) {
-    s = (LinkNode *) malloc(sizeof(LinkNode));
+    s = (StackNode *) malloc(sizeof(StackNode));
     s->next = null;
 }
 
@@ -25,7 +25,7 @@ bool isEmpty(LinkStack s) {
 
 // 进栈
 bool push(LinkStack &s, int v) {
-    auto *node = (LinkStack) malloc(sizeof (LinkNode));
+    auto *node = (LinkStack) malloc(sizeof (StackNode));
     node->data = v;
     node->next = s->next;
     s->next = node;
@@ -48,7 +48,7 @@ bool getTop(LinkStack s, int &v) {
 }
 
 void print(LinkStack s){
-    LinkNode *p = s->next;
+    StackNode *p = s->next;
     if (isEmpty(s)) {
         cout << "空栈" << endl;
         return;
