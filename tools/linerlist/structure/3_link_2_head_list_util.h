@@ -7,6 +7,7 @@
 typedef struct DoubleNode {
     int data;
     DoubleNode *prior, *next;
+    int freq;
 } DoubleNode, *DoubleList;
 
 void initList(DoubleList &list);
@@ -22,6 +23,8 @@ bool isEmpty(DoubleList list);
 void printList(DoubleList list);
 
 DoubleList headCreateListPre(DoubleList &list, int data[], int len);
+
+DoubleList headCreateListAfter(DoubleList &list, int data[], int len);
 
 
 #endif //CHAPTER3_STACKANDQUEUE_3_LINK_2_NO_HEAD_LIST_UTIL_H

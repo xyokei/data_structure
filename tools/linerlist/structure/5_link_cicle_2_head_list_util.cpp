@@ -4,6 +4,7 @@
 
 #include "5_link_cicle_2_head_list_util.h"
 #include <iostream>
+
 using namespace std;
 
 void initList(CircleDList &list) {
@@ -80,22 +81,22 @@ void printList(CircleDList list) {
         }
     }
     cout << p->data << ']' << endl;
-    // 测试prior
-    i = 0;
-    cout << "双链表：prior 输出" << endl << "[";
-    while (p->prior != list) {
-        if (i != 0 && i % 7 == 0) cout << endl << ' ';
-        cout << p->data << ',' << '\t';
-        p = p->prior;
-        i++;
-        //判断p是不是最后一个节点
-        //p == nullptr 是当表只有一个节点
-        //p ->next ==  nullptr 是当表大于1个节点时，p为最后一个节点
-        if (p->prior == list) {
-            break;
-        }
-    }
-    cout << p->data << ']' << endl;
+    // // 测试prior
+    // i = 0;
+    // cout << "双链表：prior 输出" << endl << "[";
+    // while (p->prior != list) {
+    //     if (i != 0 && i % 7 == 0) cout << endl << ' ';
+    //     cout << p->data << ',' << '\t';
+    //     p = p->prior;
+    //     i++;
+    //     //判断p是不是最后一个节点
+    //     //p == nullptr 是当表只有一个节点
+    //     //p ->next ==  nullptr 是当表大于1个节点时，p为最后一个节点
+    //     if (p->prior == list) {
+    //         break;
+    //     }
+    // }
+    // cout << p->data << ']' << endl;
 }
 
 /**
@@ -123,6 +124,25 @@ CircleDList headCreateListPre(CircleDList &list, int data[], int len) {
         s->next = list->next;
         s->prior = list;
         list->next = s;
+    }
+    return list;
+}
+
+CircleDList headCreateListAfter(CircleDList &list, int data[], int len) {
+    CircleDNode *s, *rear;
+    list = (CircleDNode *) malloc(sizeof(CircleList));
+    list->next = list;
+    list->prior = list;
+    rear = list;
+    for (int i = 0; i < len; ++i) {
+        s = (CircleDNode *) malloc(sizeof(CircleList));
+        s->data = data[i];
+        s->next = rear->next;
+        s->prior = rear;
+        list->prior = s;
+        rear->next = s;
+        rear = s;
+
     }
     return list;
 }

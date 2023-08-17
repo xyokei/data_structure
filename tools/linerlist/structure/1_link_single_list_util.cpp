@@ -166,6 +166,7 @@ int getLength(SingleList list) {
     int i = 0;
     while (list->next != nullptr) {
         i++;
+        list=list->next;
     }
     return i;
 }
@@ -218,8 +219,16 @@ void printList(SingleList list) {
         cout << "空表" << endl;
         return;
     }
+    int len = getLength(list);
+    cout<<"表长："<<len<<endl;
+
     int i = 0;
     cout << "单链表：" << endl << "[";
+    //打补丁，单链表数量为1的时候出错
+    if(len == 1){
+        cout << p->data << ']' << endl;
+        return;
+    }
     while (p != nullptr) {
         if (i!=0 && i % 7 == 0) cout << endl <<' ';
         cout << p->data<< ',' << '\t';

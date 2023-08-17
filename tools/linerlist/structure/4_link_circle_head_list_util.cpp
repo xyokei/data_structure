@@ -4,6 +4,7 @@
 
 #include "4_link_circle_head_list_util.h"
 #include <iostream>
+
 using namespace std;
 
 /**
@@ -16,6 +17,7 @@ bool initList(CircleList &list) {
         return false;
     }
     list->next = list; //头结点next指向自己
+    list->data =INT_FAST16_MAX; //设定最大值 后面题目需要
     return true;
 }
 
@@ -163,9 +165,11 @@ bool isEmpty(CircleList list) {
 }
 
 int getLength(CircleList list) {
+    CircleNode *p = list->next;
     int i = 0;
-    while (list->next != nullptr) {
+    while (p!= list) {
         i++;
+        p = p->next;
     }
     return i;
 }
@@ -180,14 +184,14 @@ int getLength(CircleList list) {
 CircleList headCreateListPre(CircleList &list, int data[], int len) {
     CircleNode *s;
     list = (CircleList) malloc(sizeof(CircleNode));
-    list->next= nullptr; //不置空输出的时候有bug，无限循环
+    list->next = nullptr; //不置空输出的时候有bug，无限循环
     for (int i = 0; i < len; ++i) {
         s = (CircleList) malloc(sizeof(CircleNode));
         s->data = data[i];
         s->next = list->next;
         list->next = s;
-        if(i==0){
-            s->next=list;
+        if (i == 0) {
+            s->next = list;
         }
     }
     return list;
@@ -200,14 +204,14 @@ CircleList headCreateListPre(CircleList &list, int data[], int len) {
  * @param len
  * @return
  */
-CircleList headCreateListAfter(CircleList &list, int data[],int len){
-    CircleNode *s,*rear;
-    list = (CircleList) malloc(sizeof(CircleNode));
-    list->next= nullptr;
+CircleList headCreateListAfter(CircleList &list, int data[], int len) {
+    CircleNode *s, *rear;
+    initList(list);
     rear = list;
     for (int i = 0; i < len; ++i) {
-        s = (CircleList)malloc(sizeof(CircleNode));
-        s->data= data[i];
+        s = (CircleList) malloc(sizeof(CircleNode));
+        s->data = data[i];
+        s->next = rear->next;
         rear->next = s;
         rear = s;
     }
@@ -220,11 +224,13 @@ void printList(CircleList list) {
         cout << "空表" << endl;
         return;
     }
+    int len = getLength(list);
+    cout << "表长：" << len << endl;
     int i = 0;
     cout << "单链表：" << endl << "[";
     while (p && p->next != list) {
-        if (i!=0 && i % 7 == 0) cout << endl <<' ';
-        cout << p->data<< ',' << '\t';
+        if (i != 0 && i % 7 == 0) cout << endl << ' ';
+        cout << p->data << ',' << '\t';
         p = p->next;
         i++;
     }

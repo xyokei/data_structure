@@ -4,6 +4,7 @@
 
 #include "3_link_2_head_list_util.h"
 #include <iostream>
+
 using namespace std;
 
 void initList(DoubleList &list) {
@@ -81,21 +82,21 @@ void printList(DoubleList list) {
     }
     cout << p->data << ']' << endl;
     // 测试prior
-    i = 0;
-    cout << "双链表：prior 输出" << endl << "[";
-    while (p->prior != nullptr) {
-        if (i != 0 && i % 7 == 0) cout << endl << ' ';
-        cout << p->data << ',' << '\t';
-        p = p->prior;
-        i++;
-        //判断p是不是最后一个节点
-        //p == nullptr 是当表只有一个节点
-        //p ->next ==  nullptr 是当表大于1个节点时，p为最后一个节点
-        if (p == nullptr || p->prior == list) {
-            break;
-        }
-    }
-    cout << p->data << ']' << endl;
+    // i = 0;
+    // cout << "双链表：prior 输出" << endl << "[";
+    // while (p->prior != nullptr) {
+    //     if (i != 0 && i % 7 == 0) cout << endl << ' ';
+    //     cout << p->data << ',' << '\t';
+    //     p = p->prior;
+    //     i++;
+    //     //判断p是不是最后一个节点
+    //     //p == nullptr 是当表只有一个节点
+    //     //p ->next ==  nullptr 是当表大于1个节点时，p为最后一个节点
+    //     if (p == nullptr || p->prior == list) {
+    //         break;
+    //     }
+    // }
+    // cout << p->data << ']' << endl;
 }
 
 /**
@@ -108,21 +109,41 @@ void printList(DoubleList list) {
 DoubleList headCreateListPre(DoubleList &list, int data[], int len) {
     DoubleNode *s;
     list = (DoubleList) malloc(sizeof(DoubleNode));
-    list->next= nullptr;
+    list->next = nullptr;
     // 处理第一个结点，不然list->next->prior 无值
-    s= (DoubleList) malloc(sizeof(DoubleNode));
+    s = (DoubleList) malloc(sizeof(DoubleNode));
     s->data = data[0];
-    s->prior=list;
+    s->freq = 0;
+    s->prior = list;
     s->next = nullptr;
     list->next = s;
 
     for (int i = 1; i < len; ++i) {
         s = (DoubleList) malloc(sizeof(DoubleNode));
         s->data = data[i];
+        s->freq = 0;
         list->next->prior = s;
         s->next = list->next;
         s->prior = list;
         list->next = s;
+    }
+    return list;
+}
+
+DoubleList headCreateListAfter(DoubleList &list, int data[], int len) {
+    DoubleNode *s, *rear;
+    list = (DoubleList) malloc(sizeof(DoubleNode));
+    list->next = nullptr;
+    list->prior = nullptr;
+    rear = list;
+    for (int i = 0; i < len; ++i) {
+        s = (DoubleNode *) malloc(sizeof(DoubleList));
+        s->data = data[i];
+        s->freq = 0;
+        s->next = rear->next;
+        s->prior = rear;
+        rear->next = s;
+        rear = s;
     }
     return list;
 }

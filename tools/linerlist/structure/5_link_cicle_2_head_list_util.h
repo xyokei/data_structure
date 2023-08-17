@@ -25,5 +25,7 @@ void printList(CircleDList list);
 
 CircleDList headCreateListPre(CircleDList &list, int data[], int len);
 
+CircleDList headCreateListAfter(CircleDList &list, int data[], int len);
+
 
 #endif //CHAPTER3_STACKANDQUEUE_5_LINK_CICLE_2_NO_HEAD_LIST_UTIL_H
