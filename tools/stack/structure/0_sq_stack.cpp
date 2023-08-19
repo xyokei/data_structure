@@ -1,12 +1,11 @@
 //
-// Created by AutumnSigni on 2023/7/13.
-//栈 -- 顺序存储 方法
-#include "sq_stack.h"
-#include "iostream"
+// Created by AutumnSigni on 2023/8/20.
+//
+
+#include "0_sq_stack.h"
+#include <iostream>
+
 using namespace std;
-
-#ifndef SQ_STACK_UTIL_
-
 // 初始化
 void initStack(SqStack &s){
     s.top = -1;
@@ -63,4 +62,3 @@ void print(SqStack s) {
     }
     cout << s.data[0] << ']'<<endl;
 }
-#endif  //SQ_STACK_UTIL_
