@@ -3,6 +3,7 @@ project(chapter3_StackAndQueue)
 
 set(CMAKE_CXX_STANDARD 17)
 include_directories("../tools/stack") #文件绝对路径 和相对路径
+include_directories("../tools/queue") #文件绝对路径 和相对路径
 
 #递归遍历文件夹 用 GLOB_RECURSE
 #遍历当前文件夹 SOURCE_FILES

@@ -4,6 +4,7 @@
 
 # include "structure/0_sq_stack.cpp"
 # include "structure/1_link_stack.cpp"
+# include "structure/2_share_stack.cpp"
 #ifndef SQ_UTIL_
 #define SQ_UTIL_
 

@@ -38,17 +38,17 @@ int index(sstring s, sstring t) {
     int i = 1, j = 1;
     int s_len = strLength(s);
     int t_len = strLength(t);
-    while (i <= s_len - t_len + 1 && j<=t_len) {// 前面控制匹配总次数，后面控制匹配第一次跳出
+    while (i <= s_len - t_len + 1 && j <= t_len) {// 前面控制匹配总次数，后面控制匹配第一次跳出
         if (s.ch[i] == t.ch[j]) {
             ++i;
             ++j;
         } else {
-            i = i - j + 2;
-            j = 1;
+            i = i - j + 2; //重点
+            j = 1;         //重点
         }
     }
-    if (j>t_len){
-        return j-t_len;
+    if (j > t_len) {
+        return j - t_len;
     }
     return 0;
 }

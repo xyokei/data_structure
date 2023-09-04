@@ -29,6 +29,26 @@ void get_next(sstring t, int next[]) {
 }
 
 /**
+ * 优化
+ * @param t
+ * @param nextval
+ */
+void get_nextval(sstring t,int nextval[]){
+    int i =1,j=0;
+    nextval[1] =0;
+    while (i<t.length){
+        if (j==0||t.ch[i]==t.ch[j]){
+            ++i;++j;
+            if (t.ch[i]!=t.ch[j]) nextval[i] =j;
+            else nextval[i] =nextval[j];
+        } else{
+            j = nextval[j];
+        }
+    }
+}
+
+
+/**
  * 就硬记吧，主要会手算就行
  * @param s 主串
  * @param t 模串
@@ -36,10 +56,10 @@ void get_next(sstring t, int next[]) {
  * O(s+t) = O(s)
  */
 int kmp_sstring(sstring s, sstring t) {
-    int i=1, j = 1;
+    int i=1, j = 1; // i为主串下标 ，j为模式串下标
     int next[t.length];
-    get_next(t, next);
-    while (i <= s.length - t.length + 1 && j <= t.length) {
+    get_next(t, next); //时间复杂度 O(m)
+    while (i <= s.length - t.length + 1 && j <= t.length) { //只循环i，即 时间复杂度O(n)
         if (j == 0 || s.ch[i] == s.ch[j]) {
             ++i;
             ++j;

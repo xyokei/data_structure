@@ -16,7 +16,7 @@ bool isEmpty(SqStack s){
 }
 
 // 进栈
-bool push(SqStack &s,int v){
+bool push(SqStack &s,ElemType v){
     if (s.top == MaxSize -1){
         return false;
     }
@@ -25,7 +25,7 @@ bool push(SqStack &s,int v){
 }
 
 //出栈
-bool pop(SqStack &s,int &v){
+bool pop(SqStack &s,ElemType &v){
     if(s.top == -1){
         return false;
     }
@@ -34,7 +34,7 @@ bool pop(SqStack &s,int &v){
 }
 
 //读取栈顶元素
-bool getTop(SqStack s,int &v){
+bool getTop(SqStack s,ElemType &v){
     if(s.top == -1){
         return false;
     }
