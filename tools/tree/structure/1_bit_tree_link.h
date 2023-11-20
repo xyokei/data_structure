@@ -80,4 +80,8 @@ void layerOrder(BitTree root);
 void createThread(BitTree root);
 
 
+//遍历非递归
+void inOrder2(BitTree root);
+void preOrder2(BitTree root);
+void postOrder2(BitTree root);
 #endif //CHAPTER4_STRING_1_BIT_TREE_LINK_H

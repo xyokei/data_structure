@@ -5,6 +5,7 @@
 #include "1_bit_tree_link.h"
 #include <iostream>
 #include <queue>
+#include <stack>
 
 using namespace std;
 
@@ -84,7 +85,16 @@ void deleteNode_BST(BitTree &root, ElemType x) {
     }
 }
 
-// 求树高
+// 当树中没有height时，求高度
+int getMaxHeight(BitNode *root) {
+    if (root == nullptr) return 0;//叶子结点高度 0
+    int leftHeight = getMaxHeight(root->lchild);
+    int rightHeight = getMaxHeight(root->rchild);
+    return max(leftHeight, rightHeight) + 1;
+}
+
+// 求树高 此方法根节点的高度就是树的高度，为AVL专门写的
+// 即每个height有值了
 int getHeight(BitNode *root) {
     if (root == NULL) return 0;
     return root->height;
@@ -98,24 +108,27 @@ int getBalanceFactor(BitNode *root) {
 void updateHeight(BitNode *root) {
     root->height = max(getHeight(root->lchild), getHeight(root->rchild)) + 1;
 }
+
 // 左旋
-void L(BitNode *root){//设root 为A结点
+void L(BitNode *root) {//设root 为A结点
     BitNode *temp = root->rchild;  //设右孩子为B，即让B成为根结点
-    root->rchild =temp->lchild; //B的左子树成为A的右子树
-    temp->lchild =root; // A成为B的左子树
+    root->rchild = temp->lchild; //B的左子树成为A的右子树
+    temp->lchild = root; // A成为B的左子树
     updateHeight(root); //更新A的高度
     updateHeight(temp);//更新B高度
-    root =temp; //根结点设成 B
+    root = temp; //根结点设成 B
 }
+
 //右旋 与左旋是互逆操作，
-void R(BitNode *root){//设root 为B结点
+void R(BitNode *root) {//设root 为B结点
     BitNode *temp = root->lchild;  //设左孩子为A，即让A成为根结点
-    root->lchild =temp->rchild; //A的右子树成为B的左子树
-    temp->rchild =root; // B成为A的右子树
+    root->lchild = temp->rchild; //A的右子树成为B的左子树
+    temp->rchild = root; // B成为A的右子树
     updateHeight(root); //更新B的高度
     updateHeight(temp);//更新A高度
-    root =temp; //根结点设成 B
+    root = temp; //根结点设成 B
 }
+
 // 插入
 void insert_AVL(BitTree &root, ElemType x) {
     if (root == nullptr) {
@@ -123,24 +136,23 @@ void insert_AVL(BitTree &root, ElemType x) {
         return;
     }
     if (x < root->data) { //默认数据即是权值
-        insert_AVL(root->lchild,x);//插到左子树
+        insert_AVL(root->lchild, x);//插到左子树
         updateHeight(root);
-        if (getBalanceFactor(root) == 2){
-            if (getBalanceFactor(root->lchild)==1){ //LL型
+        if (getBalanceFactor(root) == 2) {
+            if (getBalanceFactor(root->lchild) == 1) { //LL型
                 R(root);
-            } else if (getBalanceFactor(root->lchild)==-1){//LR型
+            } else if (getBalanceFactor(root->lchild) == -1) {//LR型
                 L(root->lchild);
                 R(root);
             }
         }
-    }
-    else {
-        insert_AVL(root->rchild,x);//插到右子树
+    } else {
+        insert_AVL(root->rchild, x);//插到右子树
         updateHeight(root);
-        if (getBalanceFactor(root) == -2){
-            if (getBalanceFactor(root->lchild)==-1){ //RR型
+        if (getBalanceFactor(root) == -2) {
+            if (getBalanceFactor(root->lchild) == -1) { //RR型
                 L(root);
-            } else if (getBalanceFactor(root->lchild)==1){//RL型
+            } else if (getBalanceFactor(root->lchild) == 1) {//RL型
                 R(root->lchild);
                 L(root);
             }
@@ -186,7 +198,7 @@ BitNode *createByPreAndIn(int pre[], int preL, int preR, int in[], int inL, int 
     root->rchild = createByPreAndIn(pre, preL + numLeft + 1, preR, in, i + 1, inR);//右子树递归构建
     return root;
 }
-// 通过后序中序序列简历二叉树
+// 通过后序中序序列建立二叉树
 /**
  * 1.后序定子树根
  * 2.中序定左右子树序列
@@ -278,7 +290,7 @@ void layerOrder(BitTree root) {
     }
 }
 
-void inThread(BitNode *p, BitNode *pre) {
+void inThread(BitNode *&p, BitNode *&pre) {
     if (p == nullptr) {
         return;
     }
@@ -301,7 +313,7 @@ void createThread(BitTree root) {
     BitNode *pre = nullptr;
     if (root != nullptr) {
         inThread(root, pre);
-        pre->lchild = nullptr;  //处理最后一个结点
+        pre->rchild = nullptr;  //处理最后一个结点
         pre->ltag = 1;
     }
 }
@@ -319,5 +331,107 @@ BitNode *nextNode(BitNode *p) {
 void inOrder(BitNode *root, bool flag) {
     for (BitNode *p = firstNode(root); p != nullptr; p = nextNode(p)) {
         cout << p->data << " ";
+    }
+}
+
+//遍历非递归
+void inOrder2(BitTree root) {
+    stack<BitNode *> s;
+    BitNode *p = root;
+    while (p || s.empty()) {
+        while (p) {
+            s.push(p);
+            p = p->lchild;
+        }
+        p = s.top();
+        //visit p
+        s.pop();
+        p = p->rchild;
+    }
+
+}
+
+void preOrder2(BitTree root) {
+    if (!root) return;
+    stack<BitNode *> s;
+    s.push(root);
+    while (!s.empty()) {
+        BitNode *node = s.top();
+        // visit(node);
+        s.pop();
+        if (node->rchild) s.push(node->rchild);
+        if (node->lchild) s.push(node->lchild);
+    }
+}
+
+void postOrder2(BitTree root) {
+    if (!root) return;
+    stack<BitNode *> s1,s2;
+    s1.push(root);
+    while (!s1.empty()) {
+        BitNode *node = s1.top();
+        // visit(node);
+        s1.pop();
+        s2.push(node);
+        if (node->lchild) s1.push(node->lchild);
+        if (node->rchild) s1.push(node->rchild);
+    }
+    while (!s2.empty()) {
+        // visit s2.top
+        s2.pop();
+    }
+}
+
+// 先序线索化
+void preThread(BitNode *&p, BitNode *&pre) {
+    if (p == nullptr) {
+        return;
+    }
+    if (p->lchild == nullptr) {
+        p->lchild = pre;
+        p->ltag = 1;
+    }
+    if (pre != nullptr && pre->rchild == nullptr) {
+        pre->rchild = p;
+        pre->rtag = 1;
+    }
+    pre = p;
+    if (p->ltag == 0) {  // 避免重复线索化
+        preThread(p->lchild, pre);
+    }
+    if (p->rtag == 0) {
+        preThread(p->rchild, pre);
+    }
+}
+
+void createPreThread(BitNode *root) {
+    BitNode *pre = nullptr;
+    if (root != nullptr) {
+        preThread(root, pre);
+    }
+}
+
+//后序线索化
+void postThread(BitNode *&p, BitNode *&pre) {
+    if (p == nullptr) {
+        return;
+    }
+    postThread(p->lchild, pre);
+    postThread(p->rchild, pre);
+    if (p->lchild == nullptr) {
+        p->lchild = pre;
+        p->ltag = 1;
+    }
+    if (pre != nullptr && pre->rchild == nullptr) {
+        pre->rchild = p;
+        pre->rtag = 1;
+    }
+    pre = p;
+}
+
+void createPostThread(BitNode *root) {
+    BitNode *pre = nullptr;
+    if (root != nullptr) {
+        postThread(root, pre);
     }
 }

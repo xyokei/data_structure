@@ -13,7 +13,7 @@
 
 #include <iostream>
 using namespace std;
-void numTower(int **a, int **s, int n) {
+void numTower(int **a, int **s, int n) {//a塔 s最优解 n 行
     for (int i = 1; i <= n; ++i) {
         s[n][i] = a[n][i]; //最值结果是从最低一行递归上去的
     }
