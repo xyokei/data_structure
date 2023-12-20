@@ -110,7 +110,7 @@ void updateHeight(BitNode *root) {
 }
 
 // 左旋
-void L(BitNode *root) {//设root 为A结点
+void L(BitNode *&root) {//设root 为A结点
     BitNode *temp = root->rchild;  //设右孩子为B，即让B成为根结点
     root->rchild = temp->lchild; //B的左子树成为A的右子树
     temp->lchild = root; // A成为B的左子树
@@ -120,7 +120,7 @@ void L(BitNode *root) {//设root 为A结点
 }
 
 //右旋 与左旋是互逆操作，
-void R(BitNode *root) {//设root 为B结点
+void R(BitNode *&root) {//设root 为B结点
     BitNode *temp = root->lchild;  //设左孩子为A，即让A成为根结点
     root->lchild = temp->rchild; //A的右子树成为B的左子树
     temp->rchild = root; // B成为A的右子树
@@ -370,7 +370,6 @@ void postOrder2(BitTree root) {
     s1.push(root);
     while (!s1.empty()) {
         BitNode *node = s1.top();
-        // visit(node);
         s1.pop();
         s2.push(node);
         if (node->lchild) s1.push(node->lchild);

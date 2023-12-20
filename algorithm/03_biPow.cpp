@@ -31,11 +31,10 @@ double biPow(double a, int n) {
 double biPow_1(double a, int n) {
     double ans = 1.0;
     while (n > 0) {
-        if (n & 1) { //二进制最后一位是1 奇数
+        if (n & 1) { //二进制最后一位是1 奇数 单独乘到最后结果上，因为最后n肯定是1
             ans = ans * a;
         }
-        //n 是偶数
-        a = a * a;
+        a = a * a; //每次乘2
         n >>= 1; // 相当于/2操作
     }
     return ans;
@@ -43,7 +42,7 @@ double biPow_1(double a, int n) {
 
 int main() {
     double a = 2;
-    int n = 4;
+    int n = 5;
     double rs = biPow(a, n);
     cout << rs<<endl;
     rs = biPow_1(a,n);

@@ -19,6 +19,8 @@
  *     1. A[i] == [j]，即A的第i个字符，B的第j个字符相等 dp[i-1][j-1] + 1
  *     2. A[i] != [j]，字符不等，dp[i][j] = max{dp[i-1][j]，dp[i][j-1]}
  *        这两个值必定是之前算过的，
+ *     时间复杂度 O(nm)
+ *     空间复杂度 O(nm)
 */
 #include <iostream>
 #include <cstring>
