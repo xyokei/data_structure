@@ -1,3 +1,5 @@
+# 25交流群 831828534
+
 # data_structure
 >数据结构学习记录   
 > <font color=grey size=2>*就随便记记，也不知道啥时候就停止了*</font>
